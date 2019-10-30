@@ -1,0 +1,88 @@
+数组去重的几个方法：
+
+let arr = [45, 85, 45, 65, 65, 98, 12, 65, 74, 32, 75, 94]
+  
+1、 es6新的属性： new Set() + Array.from
+let ss = Array.from(new Set(arr))
+
+2、es6新的属性：new Set() + ...
+let ss1 = [...new Set(arr)]
+
+3、对象属性不能重复
+let ss2 = {}
+for(let i=0;i<arr.length;i++){
+  let cur = arr[i]
+  if(ss2[cur]){
+      arr[i] = arr[arr.length -1]
+      arr.length -- 
+      i--
+      continue
+  }
+  ss2[cur] = cur
+}
+
+4、数组排序sort
+let arr1 = arr.sort(function(a,b){
+   return a - b
+})
+for(let i=0;i<arr1.length;i++){
+   if(arr1[i] === arr1[i+1]){
+      arr1.splice(i+1,1)
+      i--
+   }
+}
+
+5、indexOf
+let ss4 = []
+for(let i=0; i<arr.length;i++){
+   if(ss4.indexOf(arr[i]) === -1){
+       ss4.push(arr[i])
+   }
+}
+
+6、includes
+与indexOf相似，includes返回的布尔值（true,false）
+
+7、hasOwnProperty
+
+8、filter+indexOf
+arr.filter(function(item, index,a){
+    return arr.indexOf(item) === index  // 判断当前数据在数组中的下标是否是它本身的下标
+})
+
+9、splice
+var arr = [45,85,45,65,65,98,12,65,74,32,75,94]
+for(var i=0;i<arr.length;i++){
+   for(var j=i+1;j<arr.length;j++){
+        if(arr[i] === arr[j]){
+            arr.splice(j,1)
+            j--
+        }
+   }
+}
+
+10、递归
+var arr = [45,85,45,65,65,98,12,65,74,32,75,94]
+function unique(){
+   var len = arr.length
+   arr = arr.sort(function(a,b){
+       return a-b
+   })
+   function loop(index){
+	   if(index>=1){
+       if(arr[index] === arr[index-1]){
+          arr.splice(index,1)
+       }
+       loop(index-1)
+     }
+   }
+   loop(len-1)
+   return arr
+}
+unique()
+
+11、map:利用map数据结构存值的特点
+12、reduce
+
+
+
